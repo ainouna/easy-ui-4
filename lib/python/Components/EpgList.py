@@ -214,7 +214,11 @@ class EPGList(HTMLComponent, GUIComponent):
 		))
 
 		self.autotimericon = _loadPixmap('icons/epgclock_autotimer.png')
-		self.icetvicon = _loadPixmap('icons/epgclock_icetv.png')
+		try:
+			from Plugins.SystemPlugins.IceTV import loadIceTVIcon
+			self.icetvicon = loadIceTVIcon('epgclock_icetv.png')
+		except ImportError:
+			self.icetvicon = None
 
 		self.nowEvPix = None
 		self.nowSelEvPix = None
