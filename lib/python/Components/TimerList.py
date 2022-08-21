@@ -134,7 +134,11 @@ class TimerList(HTMLComponent, GUIComponent, object):
 		self.iconDisabled = LoadPixmap(resolveFilename(SCOPE_ACTIVE_SKIN, "icons/timer_off.png"))
 		self.iconFailed = LoadPixmap(resolveFilename(SCOPE_ACTIVE_SKIN, "icons/timer_failed.png"))
 		self.iconAutoTimer = LoadPixmap(resolveFilename(SCOPE_ACTIVE_SKIN, "icons/timer_autotimer.png"))
-		self.iconIceTVTimer = LoadPixmap(resolveFilename(SCOPE_ACTIVE_SKIN, "icons/timer_icetv.png"))
+		try:
+			from Plugins.SystemPlugins.IceTV import loadIceTVIcon
+			self.iconIceTVTimer = loadIceTVIcon("timer_icetv.png")
+		except ImportError:
+			self.iconIceTVTimer = None
 
 	def applySkin(self, desktop, parent):
 		def itemHeight(value):
