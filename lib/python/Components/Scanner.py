@@ -170,7 +170,8 @@ def scanDevice(mountpoint):
 		path = os.path.join(mountpoint, p.path)
 
 		for root, dirs, files in os.walk(path):
-			for f in files:
+			# Ignore macOS Finder metadata files starting with "._"
+			for f in (fn for fn in files if not fn.startswith("._")):
 				path = os.path.join(root, f)
 				if (f.endswith(".wav") and f.startswith("track")) or f == "cdplaylist.cdpls":
 					sfile = ScanFile(path,"audio/x-cda")
